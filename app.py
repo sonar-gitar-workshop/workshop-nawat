@@ -36,6 +36,8 @@ def delete_order_item(order_id, sku, quantity):
         return {"error": "Product not found in order"}, 404
 
     item = order["items"][item_index]
+    if not isinstance(quantity, int) or isinstance(quantity, bool) or quantity <= 0:
+        return {"error": "Quantity must be a positive integer"}, 400
     if quantity > item["quantity"]:
         return {"error": "Cannot delete more than ordered quantity"}, 400
 
